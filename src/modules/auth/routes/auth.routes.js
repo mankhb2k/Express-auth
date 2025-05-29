@@ -4,17 +4,16 @@ import { authenticateToken } from '../../../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-// Route đăng ký người dùng
 router.post('/register', register);
 router.post('/login', login);
 router.post('/logout', logout);
 
-// Route yêu cầu đặt lại mật khẩu
+// QUÊN MẬT KHẨU + ĐẶT LẠI MẬT KHẨU
 router.post('/request-password-reset', requestPasswordReset);
 router.post('/reset-password', resetPassword);
 
 router.get('/protected', authenticateToken, (req, res) => {
-  res.json({ message: 'Đây là route được bảo vệ, bạn đã đăng nhập bằng JWT!', userId: req.user.userId });
+  res.json({ message: 'Bạn đã đăng nhập bằng JWT!', authUserId: req.user.authUserId, role: req.user.role });
 });
 
 export default router;
